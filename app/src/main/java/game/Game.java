@@ -1,6 +1,7 @@
 package game;
 
 public class Game {
+  private int remainingAttempts = 10;
   public Game(String wordInput){}
   public static void main(String[] args) {
   }
@@ -14,5 +15,9 @@ public class Game {
     }
 
     return strBuilder.toString(); // use String.valueOf(x) if target is a primitive types
+  }
+
+  public int getRemainingAttempts() {
+    return remainingAttempts;
   }
 }
