@@ -1,15 +1,19 @@
 package game;
 
 import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameTest {
     Game game;
 
     @BeforeEach
     public void setUp() {
-        game = new Game();
+        WordChooser mockedChooser = mock(WordChooser.class);
+        when(mockedChooser.getRandomWordFromDictionary()).thenReturn("DEVELOPER");
+
+        game = new Game(mockedChooser);
     }
 
     @DisplayName("Game is initialised with 10 remaining attempts")
@@ -21,13 +25,7 @@ public class GameTest {
     @DisplayName("Hides all letters except the first one")
     @Test
     public void testGetWordToGuess() {
-        assertEquals(game.getWordToGuess("MAKERS"), "M_____");
+        assertEquals(game.getWordToGuess(), "D________");
     }
 
-    @Disabled
-    @DisplayName("Selects a random word from the dictionary")
-    @Test
-    public void testGetRandomWordFromDictionary() {
-        // TODO: how to test randomness? test the random word is included in the dictionary supplied list?
-    }
 }
