@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Game {
   private int remainingAttempts = 10;
-
+  private ArrayList<Character> guessedLettersTracker = new ArrayList<>();
   String word;
   public Game(WordChooser wordChooser) {
     this.word = wordChooser.getRandomWordFromDictionary();
@@ -28,12 +28,12 @@ public class Game {
   }
 
   public boolean guessLetter(char letter) {
-    boolean containsGivenLetter = false;
-
-    if (Arrays.asList(word.split("")).contains(String.valueOf(letter))) {
-      containsGivenLetter = true;
+    if (Arrays.asList(this.word.split("")).contains(String.valueOf(letter))) {
+      guessedLettersTracker.add(letter);
+      return true;
+    } else {
+      remainingAttempts--;
+      return false;
     }
-
-    return containsGivenLetter;
   }
 }

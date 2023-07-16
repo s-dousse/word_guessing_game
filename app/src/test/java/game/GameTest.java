@@ -37,6 +37,13 @@ public class GameTest {
             assertTrue(game.guessLetter('E'));
         }
 
+        @DisplayName("Does not decrease the number of attempts when the guess is correct")
+        @Test
+        public void testGuessLetterDoesNotChangeRemainingAttemptsCount() {
+            game.guessLetter('E');
+            assertEquals(game.getRemainingAttempts(), 10);
+        }
+
         @DisplayName("Indicates if the letter is not in the word")
         @Test
         public void testGuessLetterWithIncorrectGuess() {
@@ -49,5 +56,11 @@ public class GameTest {
             assertFalse(game.guessLetter('7'));
         }
 
+        @DisplayName("Decreases the number of attempts when the guess is wrong")
+        @Test
+        public void testGuessLetterChangesRemainingAttemptsCount() {
+            game.guessLetter('G');
+            assertEquals(game.getRemainingAttempts(), 9);
+        }
     }
 }
