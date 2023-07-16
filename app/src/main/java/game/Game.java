@@ -1,7 +1,11 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Game {
   private int remainingAttempts = 10;
+
   String word;
   public Game(WordChooser wordChooser) {
     this.word = wordChooser.getRandomWordFromDictionary();
@@ -21,5 +25,15 @@ public class Game {
 
   public int getRemainingAttempts() {
     return remainingAttempts;
+  }
+
+  public boolean guessLetter(char letter) {
+    boolean containsGivenLetter = false;
+
+    if (Arrays.asList(word.split("")).contains(String.valueOf(letter))) {
+      containsGivenLetter = true;
+    }
+
+    return containsGivenLetter;
   }
 }

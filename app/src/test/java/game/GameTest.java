@@ -1,7 +1,8 @@
 package game;
 
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,4 +29,25 @@ public class GameTest {
         assertEquals(game.getWordToGuess(), "D________");
     }
 
+    @Nested
+    class testGuessLetter {
+        @DisplayName("Indicates if the letter is in the word")
+        @Test
+        public void testGuessLetterWithCorrectGuess() {
+            assertTrue(game.guessLetter('E'));
+        }
+
+        @DisplayName("Indicates if the letter is not in the word")
+        @Test
+        public void testGuessLetterWithIncorrectGuess() {
+            assertFalse(game.guessLetter('A'));
+        }
+
+        @DisplayName("Indicates if the letter is not in the word - non letter character")
+        @Test
+        public void testGuessLetterWithNonLetterCharacter() {
+            assertFalse(game.guessLetter('7'));
+        }
+
+    }
 }
