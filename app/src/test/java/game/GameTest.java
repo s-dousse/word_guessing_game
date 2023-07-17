@@ -2,6 +2,8 @@ package game;
 
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,10 +25,20 @@ public class GameTest {
         assertEquals(game.getRemainingAttempts(), Integer.valueOf(10));
     }
 
-    @DisplayName("Hides all letters except the first one")
-    @Test
-    public void testGetWordToGuess() {
-        assertEquals(game.getWordToGuess(), "D________");
+    @Nested
+    class testGetWordToGuess {
+        @DisplayName("Hides all letters except the first one by default")
+        @Test
+        public void testGetWordToGuess() {
+            assertEquals(game.getWordToGuess(), "D________");
+        }
+
+        @DisplayName("Displays the letters correctly guessed")
+        @Test
+        public void testGetWordToGuessAfterCorrectGuess() {
+            game.guessLetter('E');
+            assertEquals(game.getWordToGuess(), "DE_E___E_");
+        }
     }
 
     @Nested
