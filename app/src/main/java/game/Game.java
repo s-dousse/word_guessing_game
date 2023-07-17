@@ -16,19 +16,14 @@ public class Game {
     StringBuilder strBuilder = new StringBuilder();
     // TODO: This will throw a NullPointerException if world == null
 
-    // for each letter of the word to guess
-    // check if it is part of our guessedLetters list
     for (char letter : word.toCharArray()) {
-      if (guessedLetters.contains(letter)) {
-        strBuilder.append(letter);
-      } else {
-        strBuilder.append("_");
-      }
+      char result =  guessedLetters.contains(letter) ? letter : '_' ;
+      strBuilder.append(result);
     }
-    // add first letter by default
+
     strBuilder.replace(0, 1, String.valueOf(word.charAt(0)));
 
-    return strBuilder.toString(); // use String.valueOf(x) if target is a primitive types
+    return strBuilder.toString();
   }
 
   public int getRemainingAttempts() {

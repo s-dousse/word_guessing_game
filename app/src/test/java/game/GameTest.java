@@ -22,7 +22,7 @@ public class GameTest {
     @DisplayName("Game is initialised with 10 remaining attempts")
     @Test
     public void testGetRemainingAttempts() {
-        assertEquals(game.getRemainingAttempts(), Integer.valueOf(10));
+        assertEquals(Integer.valueOf(10), game.getRemainingAttempts());
     }
 
     @Nested
@@ -30,14 +30,14 @@ public class GameTest {
         @DisplayName("Hides all letters except the first one by default")
         @Test
         public void testGetWordToGuess() {
-            assertEquals(game.getWordToGuess(), "D________");
+            assertEquals("D________", game.getWordToGuess());
         }
 
         @DisplayName("Displays the letters correctly guessed")
         @Test
         public void testGetWordToGuessAfterCorrectGuess() {
             game.guessLetter('E');
-            assertEquals(game.getWordToGuess(), "DE_E___E_");
+            assertEquals("DE_E___E_", game.getWordToGuess());
         }
     }
 
@@ -53,7 +53,7 @@ public class GameTest {
         @Test
         public void testGuessLetterDoesNotChangeRemainingAttemptsCount() {
             game.guessLetter('E');
-            assertEquals(game.getRemainingAttempts(), 10);
+            assertEquals(10, game.getRemainingAttempts());
         }
 
         @DisplayName("Indicates if the letter is not in the word")
@@ -72,7 +72,7 @@ public class GameTest {
         @Test
         public void testGuessLetterChangesRemainingAttemptsCount() {
             game.guessLetter('G');
-            assertEquals(game.getRemainingAttempts(), 9);
+            assertEquals(9, game.getRemainingAttempts());
         }
     }
 }
