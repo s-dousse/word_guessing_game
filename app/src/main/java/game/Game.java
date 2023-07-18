@@ -1,16 +1,28 @@
 package game;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Game {
   private int remainingAttempts = 10;
   public ArrayList<Character> guessedLetters = new ArrayList<>();
   String word;
-  public Game(WordChooser wordChooser) {
+
+  public static void main(String[] args) {
+    Game game = new Game(new WordChooser());
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Welcome! Here's a little game where you have to guess a given word :)");
+    System.out.println("The word to guess is: " + game.getWordToGuess());
+    System.out.println("Remember you can only guess one letter at the time, it's your turn:");
+    String usersGuess = scanner.nextLine();
+    game.guessLetter(usersGuess.charAt(0));
+  }
+  public Game(@NotNull WordChooser wordChooser) {
     this.word = wordChooser.getRandomWordFromDictionary();
   }
-  public static void main(String[] args) {}
 
   public String getWordToGuess() {
     StringBuilder strBuilder = new StringBuilder();
