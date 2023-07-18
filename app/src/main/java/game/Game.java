@@ -17,15 +17,15 @@ public class Game {
     System.out.println("Welcome! Here's a little game where you have to guess a given word :)");
     System.out.println("The word to guess is: " + game.getWordToGuess());
     System.out.println("Remember you can only guess one letter at the time, it's your turn " + "( remaining attempts: " + game.getRemainingAttempts() + ") :");
-    while (!(game.wordHasBeenGuessed()) && game.hasRemainingAttempts()) {
+    do {
       char letter = scanner.nextLine().charAt(0);
       if (Character.isAlphabetic(letter)) {
-        game.guessLetter(sanitizeUserInput(letter));
-        System.out.println("Nice: " + game.getWordToGuess() + "( remaining attempts: " + game.getRemainingAttempts() + ")");
+        String result = game.guessLetter(sanitizeUserInput(letter)) ? "Right" : "Wrong";
+        if (!game.wordHasBeenGuessed()) {System.out.println(result + " :" + game.getWordToGuess() + "( remaining attempts: " + game.getRemainingAttempts() + ")");}
       } else {
         System.out.println("Please enter a valid letter");
       }
-    }
+    } while (!(game.wordHasBeenGuessed()) && game.getRemainingAttempts() > 0);
 
     if (game.wordHasBeenGuessed()) {
       System.out.println("Yay the word to guess was : " + game.getWordToGuess() + " ٩(^ᗜ^ )و");
@@ -40,10 +40,6 @@ public class Game {
 
   private boolean wordHasBeenGuessed() {
     return !getWordToGuess().contains("_");
-  }
-
-  private boolean hasRemainingAttempts() {
-    return getRemainingAttempts() > 0;
   }
 
   public Game(@NotNull WordChooser wordChooser) {
