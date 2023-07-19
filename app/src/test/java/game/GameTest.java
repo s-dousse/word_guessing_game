@@ -2,41 +2,32 @@ package game;
 
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class GameTest {
     Game game;
+    Masker mockedMasker;
+
 
     @BeforeEach
     public void setUp() {
         WordChooser mockedChooser = mock(WordChooser.class);
         when(mockedChooser.getRandomWordFromDictionary()).thenReturn("DEVELOPER");
 
-        game = new Game(mockedChooser);
+        mockedMasker = mock(Masker.class);
+        game = new Game(mockedChooser, mockedMasker);
     }
 
     @DisplayName("Game is initialised with 10 remaining attempts")
     @Test
     public void testGetRemainingAttempts() {
         assertEquals(Integer.valueOf(10), game.getRemainingAttempts());
-    }
-
-    @Nested
-    class testGetWordToGuess {
-        @DisplayName("Hides all letters except the first one by default")
-        @Test
-        public void testGetWordToGuess() {
-            assertEquals("D________", game.getWordToGuess());
-        }
-
-        @DisplayName("Displays the letters correctly guessed")
-        @Test
-        public void testGetWordToGuessAfterCorrectGuess() {
-            game.guessLetter('E');
-            assertEquals("DE_E___E_", game.getWordToGuess());
-        }
     }
 
     @Nested
@@ -79,20 +70,27 @@ public class GameTest {
         @DisplayName("Word guessed correctly")
         @Test
         public void testWithCorrectGuess() {
-            char[] wordToGuess = {'E', 'V', 'L', 'O', 'P', 'R'};
-            for(int i = 0; i < wordToGuess.length; i++) {
-                game.guessLetter(wordToGuess[i]);
+            ArrayList<Character> guessedLettersList = new ArrayList<>();
+            char[] lettersToGuess = {'E', 'V', 'L', 'O', 'P', 'R'};
+            for(int i = 0; i < lettersToGuess.length; i++) {
+                game.guessLetter(lettersToGuess[i]);
+                guessedLettersList.add(lettersToGuess[i]);
             }
+
+            when(mockedMasker.hideWord("DEVELOPER", guessedLettersList )).thenReturn("DEVELOPER");
             assertEquals(true, game.wordHasBeenGuessed());
         }
 
         @DisplayName("Word has not been guessed correctly")
         @Test
         public void testWithIncorrectGuess() {
-            char[] wordToGuess = {'E', 'V', 'L', 'O', 'P'};
-            for(int i = 0; i < wordToGuess.length; i++) {
-                game.guessLetter(wordToGuess[i]);
+            ArrayList<Character> guessedLettersList = new ArrayList<>();
+            char[] lettersToGuess = {'E', 'V', 'L', 'O', 'P'};
+            for(int i = 0; i < lettersToGuess.length; i++) {
+                game.guessLetter(lettersToGuess[i]);
+                guessedLettersList.add(lettersToGuess[i]);
             }
+            when(mockedMasker.hideWord("DEVELOPER", guessedLettersList )).thenReturn("DEVELOPE_");
             assertEquals(false, game.wordHasBeenGuessed());
         }
     }

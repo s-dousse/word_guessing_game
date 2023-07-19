@@ -11,8 +11,15 @@ public class Game {
   public ArrayList<Character> guessedLetters = new ArrayList<>();
   String word;
 
+  Masker masker;
+
+  public Game(@NotNull WordChooser wordChooser, Masker masker) {
+    this.word = wordChooser.getRandomWordFromDictionary();
+    this.masker = masker;
+  }
+
   public static void main(String[] args) {
-    Game game = new Game(new WordChooser());
+    Game game = new Game(new WordChooser(), new Masker());
     Scanner scanner = new Scanner(System.in);
     System.out.println("Welcome! Here's a little game where you have to guess a given word :)");
     System.out.println("The word to guess is: " + game.getWordToGuess());
@@ -44,22 +51,8 @@ public class Game {
 
   public boolean hasRemainingAttempts() { return getRemainingAttempts() > 0; }
 
-  public Game(@NotNull WordChooser wordChooser) {
-    this.word = wordChooser.getRandomWordFromDictionary();
-  }
-
-  public String getWordToGuess() {
-    StringBuilder strBuilder = new StringBuilder();
-    // TODO: This will throw a NullPointerException if world == null
-
-    for (char letter : word.toCharArray()) {
-      char result =  guessedLetters.contains(letter) ? letter : '_' ;
-      strBuilder.append(result);
-    }
-
-    strBuilder.replace(0, 1, String.valueOf(word.charAt(0)));
-
-    return strBuilder.toString();
+  private String getWordToGuess() {
+    return masker.hideWord(this.word, guessedLetters);
   }
 
   public int getRemainingAttempts() {
