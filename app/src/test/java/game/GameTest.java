@@ -2,8 +2,6 @@ package game;
 
 import org.junit.jupiter.api.*;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -73,6 +71,52 @@ public class GameTest {
         public void testGuessLetterChangesRemainingAttemptsCount() {
             game.guessLetter('G');
             assertEquals(9, game.getRemainingAttempts());
+        }
+    }
+
+    @Nested
+    class testWordHasBeenGuessed {
+        @DisplayName("Word guessed correctly")
+        @Test
+        public void testWithCorrectGuess() {
+            char[] wordToGuess = {'E', 'V', 'L', 'O', 'P', 'R'};
+            for(int i = 0; i < wordToGuess.length; i++) {
+                game.guessLetter(wordToGuess[i]);
+            }
+            assertEquals(true, game.wordHasBeenGuessed());
+        }
+
+        @DisplayName("Word has not been guessed correctly")
+        @Test
+        public void testWithIncorrectGuess() {
+            char[] wordToGuess = {'E', 'V', 'L', 'O', 'P'};
+            for(int i = 0; i < wordToGuess.length; i++) {
+                game.guessLetter(wordToGuess[i]);
+            }
+            assertEquals(false, game.wordHasBeenGuessed());
+        }
+    }
+
+    @Nested
+    class testHasRemainingAttempts {
+        @DisplayName("Has remaining attempts")
+        @Test
+        public void testWithRemainingAttempts() {
+            char[] wordToGuess = {'E', 'V', 'L', 'O', 'P', 'R'};
+            for(int i = 0; i < wordToGuess.length; i++) {
+                game.guessLetter(wordToGuess[i]);
+            }
+            assertEquals(true, game.hasRemainingAttempts());
+        }
+
+        @DisplayName("Has no remaining attempts")
+        @Test
+        public void testWithNoRemainingAttempts() {
+            char[] wordToGuess = {'Q', 'W', 'T', 'Y', 'U', 'I', 'X', 'Z', 'G', 'A'};
+            for(int i = 0; i < wordToGuess.length; i++) {
+                game.guessLetter(wordToGuess[i]);
+            }
+            assertEquals(false, game.hasRemainingAttempts());
         }
     }
 }

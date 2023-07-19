@@ -25,9 +25,9 @@ public class Game {
       } else {
         System.out.println("Please enter a valid letter");
       }
-    } while (!(game.wordHasBeenGuessed()) && game.getRemainingAttempts() > 0);
+    } while (!game.wordHasBeenGuessed() && game.hasRemainingAttempts());
 
-    if (game.wordHasBeenGuessed()) {
+    if (game.isWon()) {
       System.out.println("Yay the word to guess was : " + game.getWordToGuess() + " ٩(^ᗜ^ )و");
     } else {
       System.out.println("Game over (ㅠ﹏ㅠ)");
@@ -38,9 +38,11 @@ public class Game {
     return Character.toUpperCase(userInput);
   }
 
-  private boolean wordHasBeenGuessed() {
-    return !getWordToGuess().contains("_");
-  }
+  private boolean isWon() { return wordHasBeenGuessed() && hasRemainingAttempts(); }
+
+  public boolean wordHasBeenGuessed() { return !getWordToGuess().contains("_"); }
+
+  public boolean hasRemainingAttempts() { return getRemainingAttempts() > 0; }
 
   public Game(@NotNull WordChooser wordChooser) {
     this.word = wordChooser.getRandomWordFromDictionary();
