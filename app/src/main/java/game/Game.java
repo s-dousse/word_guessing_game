@@ -23,7 +23,7 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Welcome! Here's a little game where you have to guess a given word :)");
     System.out.println("The word to guess is: " + game.getWordToGuess());
-    System.out.println("Remember you can only guess one letter at the time, it's your turn " + "( remaining attempts: " + game.getRemainingAttempts() + ") :");
+    System.out.println("Remember you can only guess one letter at a time: it's your turn " + "( remaining attempts: " + game.getRemainingAttempts() + ") :");
     do {
       char letter = scanner.nextLine().charAt(0);
       if (Character.isAlphabetic(letter)) {
@@ -35,7 +35,7 @@ public class Game {
     } while (!game.wordHasBeenGuessed() && game.hasRemainingAttempts());
 
     if (game.isWon()) {
-      System.out.println("Yay the word to guess was : " + game.getWordToGuess() + " ٩(^ᗜ^ )و");
+      System.out.println("Yay, the word to guess was: " + game.getWordToGuess() + " ٩(^ᗜ^ )و");
     } else {
       System.out.println("Game over (ㅠ﹏ㅠ)");
     }

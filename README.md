@@ -60,3 +60,5 @@ Right :DEVELO_ER( remaining attempts: 3)
 P
 Yay, the word to guess was: DEVELOPER ٩(^ᗜ^ )و
 ```
+
+When I have time I would like to implement a multiplayer mode with a scoring system. The more, the merrier :)

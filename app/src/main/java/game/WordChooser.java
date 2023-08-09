@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class WordChooser {
     private static final String[] DICTIONARY = {"MAKERS", "CANDIES", "DEVELOPER", "LONDON", "BRUNCH"};
+    // TODO: add a more robust dictionary
 
     public WordChooser() {}
 

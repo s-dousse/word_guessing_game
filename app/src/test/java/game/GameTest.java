@@ -38,13 +38,6 @@ public class GameTest {
             assertTrue(game.guessLetter('E'));
         }
 
-        @DisplayName("Does not decrease the number of attempts when the guess is correct")
-        @Test
-        public void testGuessLetterDoesNotChangeRemainingAttemptsCount() {
-            game.guessLetter('E');
-            assertEquals(10, game.getRemainingAttempts());
-        }
-
         @DisplayName("Indicates if the letter is not in the word")
         @Test
         public void testGuessLetterWithIncorrectGuess() {
@@ -55,13 +48,6 @@ public class GameTest {
         @Test
         public void testGuessLetterWithNonLetterCharacter() {
             assertFalse(game.guessLetter('7'));
-        }
-
-        @DisplayName("Decreases the number of attempts when the guess is wrong")
-        @Test
-        public void testGuessLetterChangesRemainingAttemptsCount() {
-            game.guessLetter('G');
-            assertEquals(9, game.getRemainingAttempts());
         }
     }
 
@@ -116,5 +102,29 @@ public class GameTest {
             }
             assertEquals(false, game.hasRemainingAttempts());
         }
+    }
+
+    @Nested
+    class testGetRemainingAttempts {
+        @DisplayName("Decreases the number of attempts when the guess is wrong")
+        @Test
+        public void testGuessLetterChangesRemainingAttemptsCount() {
+            game.guessLetter('G');
+            assertEquals(9, game.getRemainingAttempts());
+        }
+
+        @DisplayName("Does not decrease the number of attempts when the guess is correct")
+        @Test
+        public void testGuessLetterDoesNotChangeRemainingAttemptsCount() {
+            game.guessLetter('E');
+            assertEquals(10, game.getRemainingAttempts());
+        }
+    }
+
+    @Disabled
+    @DisplayName("Randomly generates a word from the list of words")
+    @Test
+    public void testGetRandomWord() {
+        // TODO: how do test randomness?
     }
 }
